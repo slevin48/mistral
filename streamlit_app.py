@@ -3,9 +3,9 @@ from mistralai.models.chat_completion import ChatMessage
 import json, os
 import streamlit as st
 
-st.set_page_config(page_title='Chat 48',page_icon='🤖')
+st.set_page_config(page_title='Mistral Chat',page_icon='🤖')
 
-avatar = {"assistant": "🤖", "user": "🐱"}
+avatar = {"assistant": "🤖", "user": "🌀"}
 model = "mistral-tiny"
 
 # Set the API key for the Mistral Python client
@@ -75,7 +75,7 @@ st.sidebar.title('ChatGPT-like bot 🤖')
 # Debug
 # st.sidebar.write(st.session_state.convo)
 
-if st.sidebar.button('New Chat 🐱'):
+if st.sidebar.button('New Chat 🌀'):
    new_chat()
 for file in sorted(os.listdir('chat')):
   filename = file.replace('.json','')
@@ -95,7 +95,7 @@ prompt = st.chat_input(f'convo{st.session_state.id}')
 
 if prompt:
   # Append the text input to the conversation
-  with st.chat_message('user',avatar='🐱'):
+  with st.chat_message('user',avatar='🌀'):
     st.write(prompt)
   st.session_state.convo.append({'role':'user', 'content':prompt})
   # Query the chatbot with the complete conversation
@@ -107,5 +107,5 @@ if prompt:
   save_chat(id)
 
 # # Write the chat log to a json file
-# if st.sidebar.button('Save chat 🐱🤖'):
+# if st.sidebar.button('Save chat 🌀🤖'):
 #   save_chat(id)

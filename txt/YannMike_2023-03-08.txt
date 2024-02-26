@@ -1,0 +1,7 @@
+Why is my French accent?
+I want to start doing this experiment where.
+We have a conversation we record it's generating a VTT file.
+And I have a parser. I developed a small app in Python that can retrieve the VTT file process it.
+And then.
+I want to feed it through the ChatGPT API and the API is amazing. I don't know if you've played around with it already.
+No, I need to though. Yeah, the problem is I can't find time. Too many things, I promised people every day.
