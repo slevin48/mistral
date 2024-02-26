@@ -1,3 +1,7 @@
 streamlit
 mistralai
 webvtt-py
+pypdf
+faiss-cpu
+# langchain
+# langchain-mistralai
