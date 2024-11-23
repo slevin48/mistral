@@ -1,5 +1,4 @@
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
+from mistralai import Mistral
 import json, os
 import streamlit as st
 
@@ -9,7 +8,7 @@ avatar = {"assistant": "🤖", "user": "🌀"}
 model = "mistral-tiny"
 
 # Set the API key for the Mistral Python client
-client = MistralClient(
+client = Mistral(
     # defaults to os.environ.get("MISTRAL_API_KEY")?
     api_key=st.secrets['MISTRAL_API_KEY'],
 )
@@ -18,12 +17,6 @@ client = MistralClient(
 def new_chat():
    st.session_state.convo = []
    st.session_state.id += 1
-
-def chat2struct(messages):
-    return [{'role': m.role, 'content': m.content} for m in messages]
-
-def struct2chat(struct):
-    return [ChatMessage(role=m['role'], content=m['content']) for m in struct]
 
 def save_chat(n):
   file_path = f'chat/convo{n}.json'
@@ -44,16 +37,15 @@ def dumb_chat():
 
 def chat_stream(messages,model='mistral-tiny'):
   # Generate a response from the large language model
-  messages = struct2chat(messages)
-  stream_response = client.chat_stream(model=model, messages=messages)
+  stream_response = client.chat.stream(model=model, messages=messages)
   report = []
   res_box = st.empty()
   # Looping over the response
   for resp in stream_response:
-      if resp.choices[0].finish_reason is None:
+      if resp.data.choices[0].finish_reason is None:
           # join method to concatenate the elements of the list 
           # into a single string, then strip out any empty strings
-          report.append(resp.choices[0].delta.content)
+          report.append(resp.data.choices[0].delta.content)
           result = ''.join(report).strip()
           result = result.replace('\n', '')        
           res_box.write(result) 
